@@ -1,4 +1,4 @@
-# WBIOExtMini (Mini RAK5804) Arduino Library
+# WBIOExtMini (Mini RAK5804)
 
 The WBIOExtMini library is designed for the Lualtek custom WB IO Extension Mini board. This library allows you to interface with the IO Extension Mini board, which is a mini version of the RAK5804 IO Extension Module. The WB IO Extension Mini board is specifically designed for the 10x23 sensor slot of the WisBlock base board.
 
