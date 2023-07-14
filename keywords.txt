@@ -1,0 +1,5 @@
+WBIOExtMini	KEYWORD1
+attachToInterrupt	KEYWORD2
+powerOff	KEYWORD2
+powerOn	KEYWORD2
+readAnalog	KEYWORD2
