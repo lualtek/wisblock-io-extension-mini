@@ -4,32 +4,33 @@
 #endif
 #include "WBIOExtMini.h"
 
-Serial debugSerial;
+#define debugSerial Serial
 
 WBIOExtMini ioextmini(&debugSerial);
 
 void setup()
 {
-  Serial.begin(115200);
+  debugSerial.begin(115200);
   delay(2000);
-  Serial.println("WBIOExtMini example: AnalogRead");
+  debugSerial.println("WBIOExtMini example: AnalogRead");
 }
 
 void loop()
 {
   ioextmini.powerOn();
-  uint8_t analog0 = ioextmini.readAnalog(IOEXTMINI_ANALOGPIN_0);
-  uint8_t analog1 = ioextmini.readAnalog(IOEXTMINI_ANALOGPIN_1);
+  ioextmini.begin();
+  uint16_t analog0 = ioextmini.readAnalog(IOEXTMINI_A0);
+  uint16_t analog1 = ioextmini.readAnalog(IOEXTMINI_A1);
   ioextmini.powerOff();
 
   // Pretty print values as voltage in mV
-  Serial.print("\tAnalog0: ");
-  Serial.print(analog0);
-  Serial.println(" mV");
+  debugSerial.print("\tAnalog0: ");
+  debugSerial.print(analog0);
+  debugSerial.println(" mV");
 
-  Serial.print("\tAnalog1: ");
-  Serial.print(analog1);
-  Serial.println(" mV");
+  debugSerial.print("\tAnalog1: ");
+  debugSerial.print(analog1);
+  debugSerial.println(" mV");
 
   delay(2000);
 }

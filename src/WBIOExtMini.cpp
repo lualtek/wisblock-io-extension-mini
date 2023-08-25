@@ -11,7 +11,7 @@ void WBIOExtMini::powerOn()
 {
   pinMode(IOEXTMINI_POWER_PIN, OUTPUT);
   digitalWrite(IOEXTMINI_POWER_PIN, HIGH);
-  delay(1000);
+  delay(2000);
 }
 
 void WBIOExtMini::powerOff()
@@ -20,14 +20,28 @@ void WBIOExtMini::powerOff()
   digitalWrite(IOEXTMINI_POWER_PIN, LOW);
 }
 
-uint8_t WBIOExtMini::readAnalog(ioextmini_analogpin_enum pin)
+bool WBIOExtMini::begin()
 {
-  if (!adsInit())
+  if (!ADS.begin())
+  {
+    debugStream->printf("ADS1115 not found or not working correctly on address %x", IOEXTMINI_ADS1115_ADDR);
+    return false;
+  }
+
+  delay(100);
+  ADS.setGain(1);
+  return true;
+}
+
+uint16_t WBIOExtMini::readAnalog(ioextmini_analogpin_enum pin)
+{
+  if (!adsReady && !begin())
   {
     return 0;
   }
 
-  return (uint8_t)(ADS.readADC(pin) * ADS.toVoltage(pin)) * 1000;
+  adsReady = true;
+  return (ADS.readADC(pin) * ADS.toVoltage(1)) * 1000;
 }
 
 void WBIOExtMini::attachToInterrupt(void (*callback)(void), ioextmini_interrupt_mode_enum mode)
@@ -40,17 +54,6 @@ void WBIOExtMini::attachToInterrupt(void (*callback)(void), ioextmini_interrupt_
 {
   pinMode(IOEXTMINI_INTERRUPT_PIN, pinModeValue);
   attachInterrupt(digitalPinToInterrupt(IOEXTMINI_INTERRUPT_PIN), callback, mode);
-}
-
-bool WBIOExtMini::adsInit()
-{
-  if (!ADS.begin())
-  {
-    debugStream->printf("ADS1115 not found or not working correctly on address %x", IOEXTMINI_ADS1115_ADDR);
-    return false;
-  }
-  ADS.setGain(1);
-  return true;
 }
 
 Stream &WBIOExtMini::getDummyDebugStream()

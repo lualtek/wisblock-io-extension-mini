@@ -28,13 +28,21 @@ public:
   void powerOn();
   void powerOff();
   /**
+   * @brief Initialize ADS1115 for analog read
+   * This function should be called before readAnalog() is called.
+   * NOTE: the readAnalog() function will call this function if it has not been called yet.
+   *
+   * @return true if ADS1115 is ready to be used
+   */
+  bool begin();
+  /**
    * @brief Read analog value from IOExtMini
    * The analog value is read from the ADS1115 ADC and gain is set to 1 and cannot be changed.
    *
    * @param pin ioextmini_analogpin_enum
    * @return uint8_t voltage in mV
    */
-  uint8_t readAnalog(ioextmini_analogpin_enum pin);
+  uint16_t readAnalog(ioextmini_analogpin_enum pin);
   /**
    * @brief Attach interrupt to IOExtMini
    * The interrupt pin is IOEXTMINI_INTERRUPT_PIN which is WB_IO4 on the WisBlock Core.
@@ -54,8 +62,7 @@ public:
   void attachToInterrupt(void (*callback)(void), ioextmini_interrupt_mode_enum mode, int pinModeValue);
 
 private:
-  bool adsInit();
-
+  bool adsReady = false;
   Stream *debugStream;
 
   // Returns a reference to a dummy debug stream (that doesn't print anything)
