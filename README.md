@@ -107,56 +107,6 @@ wbioextmini.attachToInterrupt(interruptCallback, IOEXTMINI_INTERRUPT_RISING);
 
 Replace `interruptCallback` with the function that should be called when the interrupt is triggered. You can specify the interrupt mode using `IOEXTMINI_INTERRUPT_RISING`, `IOEXTMINI_INTERRUPT_FALLING`, or `IOEXTMINI_INTERRUPT_CHANGE`. By default, the interrupt pin is configured as INPUT.
 
-## Example Sketch
-
-Here's an example sketch that demonstrates analog reading and interrupt usage using the WBIOExtMini library:
-
-```cpp
-#ifdef _VARIANT_RAK4630_
-#include <Adafruit_TinyUSB.h>
-#endif
-#include "WBIOExtMini.h"
-
-Serial debugSerial;
-
-WBIOExtMini wbioextmini(&debugSerial);
-
-void setup()
-{
-  Serial.begin(115200);
-  delay(2000);
-  Serial.println("WBIOExtMini example: AnalogRead and Interrupt");
-
-  // Attach interrupt
-  wbioextmini.attachToInterrupt(interruptCallback, IOEXTMINI_INTERRUPT_RISING);
-}
-
-void loop()
-{
-  wbioextmini.powerOn();
-  uint8_t analog0 = wbioextmini.readAnalog(IOEXTMINI_A0);
-  uint8_t analog1 = wbioextmini.readAnalog(IOEXTMINI_A1);
-  wbioextmini.powerOff();
-
-  // Pretty print values as voltage in mV
-  Serial.print("\tAnalog0: ");
-  Serial.print(analog0);
-  Serial.println(" mV");
-
-  Serial.print("\tAnalog1: ");
-  Serial.print(analog1);
-  Serial.println(" mV");
-
-  delay(2000);
-}
-
-void interruptCallback() {
-  // Handle the interrupt event
-}
-```
-
-Make sure to wire the WB IO Extension Mini board correctly and modify the sketch according to your requirements.
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
