@@ -11,17 +11,18 @@ void WBIOExtMini::powerOn()
 {
   pinMode(IOEXTMINI_POWER_PIN, OUTPUT);
   digitalWrite(IOEXTMINI_POWER_PIN, HIGH);
-  delay(2000);
+  delay(200);
 }
 
 void WBIOExtMini::powerOff()
 {
-  pinMode(IOEXTMINI_POWER_PIN, OUTPUT);
   digitalWrite(IOEXTMINI_POWER_PIN, LOW);
 }
 
 bool WBIOExtMini::begin()
 {
+
+  Wire.begin();
   if (!ADS.begin())
   {
     debugStream->printf("ADS1115 not found or not working correctly on address %x", IOEXTMINI_ADS1115_ADDR);

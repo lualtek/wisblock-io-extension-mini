@@ -1,6 +1,6 @@
 {
   "name": "wisblock-io-extension-mini",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Library for the Lualtek WisBlock IO Extension Mini board",
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
     }
   ],
   "dependencies": {
-    "ADS1X15": "^0.3"
+    "ADS1X15": "^0.4"
   },
   "license": "MIT",
   "frameworks": "arduino",
