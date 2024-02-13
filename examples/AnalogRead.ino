@@ -1,7 +1,4 @@
 
-#ifdef _VARIANT_RAK4630_
-#include <Adafruit_TinyUSB.h>
-#endif
 #include "WBIOExtMini.h"
 
 #define debugSerial Serial
