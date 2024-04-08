@@ -18,7 +18,9 @@ enum ioextmini_interrupt_mode_enum : uint8_t
 enum ioextmini_analogpin_enum : uint8_t
 {
   IOEXTMINI_A0 = 0,
-  IOEXTMINI_A1 = 1
+  IOEXTMINI_A1 = 1,
+  IOEXTMINI_A2 = 2,
+  IOEXTMINI_A3 = 3
 };
 
 class WBIOExtMini
